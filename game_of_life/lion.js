@@ -4,7 +4,8 @@
 
 
 
-class Lion {
+let LivingCreature = require('./LivingCreature')
+module.exports =class Lion {
     constructor(x, y) {
         this.x = x;
         this.y = y;

@@ -1,65 +1,7 @@
-function generator(matLen, gr, grEat, prd, ant, ln,st) {
-    let matrix = [];
-    for (let i = 0; i < matLen; i++) {
-        matrix[i] = [];
-        for (let j = 0; j < matLen; j++) {
-            matrix[i][j] = 0;
-        }
-    }
-    for (let i = 0; i < gr; i++) {
-        let x = Math.floor(Math.random() * matLen);
-        let y = Math.floor(Math.random() * matLen)
 
-        if (matrix[x][y] == 0) {
-            matrix[x][y] = 1;
-        }
-    }
-    for (let i = 0; i < grEat; i++) {
-        let x = Math.floor(Math.random() * matLen);
-        let y = Math.floor(Math.random() * matLen);
-        if (matrix[x][y] == 0) {
-            matrix[x][y] = 2;
-        }
-    }
-    for (let i = 0; i < prd; i++) {
-        let x = Math.floor(Math.random() * matLen);
-        let y = Math.floor(Math.random() * matLen);
-        if (matrix[x][y] == 0) {
-            matrix[x][y] = 3;
-        }
-    }
-    for (let i = 0; i < ant; i++) {
-        let x = Math.floor(Math.random() * matLen);
-        let y = Math.floor(Math.random() * matLen);
-        if (matrix[x][y] == 0) {
-            matrix[x][y] = 4;
-        }
-    }
-    for (let i = 0; i < ln; i++) {
-        let x = Math.floor(Math.random() * matLen);
-       let y = Math.floor(Math.random() * matLen);
-        if (matrix[x][y] == 0) {
-            matrix[x][y] = 5;
-        }
-    }
-    for (let i = 0; i < st; i++) {
-        let x = Math.floor(Math.random() * matLen);
-        let y = Math.floor(Math.random() * matLen)
-
-        if (matrix[x][y] == 0) {
-            matrix[x][y] = 6;
-        }
-    }
-    return matrix;
-}
 var side = 15;
-let matrix = generator(50, 15, 20, 20, 20, 20,5);
-var grassArr = [];
-var grassEaterArr = [];
-var predatorArr = [];
-var antArr = [];
-var lionArr = [];
-var stoneArr =[]
+
+
 function setup() {
     frameRate(5);
     createCanvas(matrix[0].length * side, matrix.length * side);
