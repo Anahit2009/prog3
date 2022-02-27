@@ -1,21 +1,21 @@
 let LivingCreature = require('./LivingCreature')
-module.exports =class Ant extends LivingCreature{
+module.exports = class Ant extends LivingCreature {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.energy = 5;
+        super(x, y)
+        this.energy = 2;
         this.multiply = 0
-        this.directions = [];
+
     }
 
-    
+
 
     mul() {
         this.multiply++;
-        var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+        var emptyCells = super.chooseCell(0);
+        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
-        if (newCell && this.multiply >= 7) {
+
+        if (newCell && this.multiply >= 5) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = 4;
@@ -27,8 +27,8 @@ module.exports =class Ant extends LivingCreature{
     }
 
     move() {
-        this.energy--
-        var emptyCells = this.chooseCell(0)
+        this.energy -= 2
+        var emptyCells = super.chooseCell(0)
         var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
         if (newCell && this.energy >= 0) {
             var newX = newCell[0]
@@ -52,7 +52,7 @@ module.exports =class Ant extends LivingCreature{
         for (var i in antArr) {
             if (this.x == antArr[i].x && this.y == antArr[i].y) {
                 antArr.splice(i, 1);
-                break;
+
             }
         }
     }

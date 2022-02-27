@@ -2,9 +2,8 @@
 let LivingCreature = require('./LivingCreature')
 module.exports =class Predator extends LivingCreature{
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.energy = 15;
+        super(x,y)
+        this.energy = 8;
         this.multiply = 0
         this.directions = [];
     }
@@ -13,8 +12,8 @@ module.exports =class Predator extends LivingCreature{
 
     mul() {
         this.multiply++;
-        var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+        var emptyCells = super.chooseCell(0);
+        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
         if (newCell && this.multiply >= 8) {
             var newX = newCell[0];
@@ -29,11 +28,11 @@ module.exports =class Predator extends LivingCreature{
 
     move() {
         this.energy--
-        var emptyCells = this.chooseCell(0)
+        var emptyCells = super.chooseCell(0)
         var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
-        var emptyCells1 = this.chooseCell(1)
+        var emptyCells1 = super.chooseCell(1)
         var newCell1 = emptyCells1[Math.floor(Math.random() * emptyCells1.length)]
-        var emptyCells6 = this.chooseCell(6)
+        var emptyCells6 = super.chooseCell(6)
         var newCell6 = emptyCells6[Math.floor(Math.random() * emptyCells6.length)]
         if (newCell && this.energy >= 0) {
             var newX = newCell[0]
@@ -60,7 +59,7 @@ module.exports =class Predator extends LivingCreature{
     }
 
     eat() {
-        var emptyCells = this.chooseCell(2)
+        var emptyCells = super.chooseCell(2)
         var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
         if (newCell) {
@@ -75,13 +74,13 @@ module.exports =class Predator extends LivingCreature{
             for (var i in grassEaterArr) {
                 if (newX == grassEaterArr[i].x && newY == grassEaterArr[i].y) {
                     grassEaterArr.splice(i, 1)
-                    break
+                   
                 }
 
             } for (var i in antArr) {
                 if (newX == antArr[i].x && newY == antArr[i].y) {
                     antArr.splice(i, 1)
-                    break
+                  
                 }
             }
 
@@ -96,7 +95,7 @@ module.exports =class Predator extends LivingCreature{
         for (var i in predatorArr) {
             if (this.x == predatorArr[i].x && this.y == predatorArr[i].y) {
                 predatorArr.splice(i, 1);
-                break;
+                
             }
         }
     }
