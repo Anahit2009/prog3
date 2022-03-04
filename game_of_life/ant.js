@@ -9,27 +9,27 @@ module.exports = class Ant extends LivingCreature {
 
 
 
+    
+
+
     mul() {
         this.multiply++;
-        var emptyCells = super.chooseCell(0);
-        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
-
-
-        if (newCell && this.multiply >= 5) {
-            var newX = newCell[0];
-            var newY = newCell[1];
-            matrix[newY][newX] = 4;
-
-            var newAnt = new Ant(newX, newY);
+        
+        let emptyCells = super.chooseCell(0)
+        let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+    
+        if (this.multiply >= 8 && newCell) {
+            let newAnt = new Ant(newCell[0], newCell[1], this.index);
             antArr.push(newAnt);
+            matrix[newCell[1]][newCell[0]] = 1;
             this.multiply = 0;
         }
     }
-
     move() {
-        this.energy -= 2
-        var emptyCells = super.chooseCell(0)
+        this.energy -= 1
+        var emptyCells = super.chooseCell(1)
         var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+        console.log(newCell);
         if (newCell && this.energy >= 0) {
             var newX = newCell[0]
             var newY = newCell[1]
@@ -56,5 +56,7 @@ module.exports = class Ant extends LivingCreature {
             }
         }
     }
+
 }
 
+   

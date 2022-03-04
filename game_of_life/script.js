@@ -1,10 +1,10 @@
 var socket = io();
-var side = 15;
+var side = 25;
 
 
 function setup() {
     frameRate(5);
-    createCanvas(50 * side, 50 * side);
+    createCanvas(30 * side, 30 * side);
     background('#acacac');
     
 }
@@ -29,7 +29,7 @@ function nkarel(matrix) {
                 fill("white");
                 rect(x * side, y * side, side, side);
             } else if (matrix[y][x] == 4) {
-                fill("brown");
+                fill("aqua");
                 rect(x * side, y * side, side, side);
              }else if (matrix[y][x] == 5) {
                 fill("orange");
@@ -50,3 +50,9 @@ function kill() {
     
     socket.emit("kill")
 }
+function kill(){
+    socket.emit('killAll');
+    }
+    function addGrass() {
+        socket.emit("add grass")
+    }

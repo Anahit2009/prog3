@@ -68,7 +68,7 @@ function generator(matLen, gr, grEat, prd, ant, ln, st) {
     return matrix;
 }
 
-matrix = generator(50, 15, 20, 20, 20, 20, 5);
+matrix = generator(30, 15, 8, 8,3, 12, 5);
 
 io.sockets.emit('send matrix', matrix)
 
@@ -79,12 +79,12 @@ antArr = [];
 lionArr = [];
 stoneArr = []
 
-Grass = require("./Grass")
-GrassEater = require("./GrassEater")
-Predator = require("./Predator")
-Ant = require("./Ant")
-Lion = require("./Lion")
-Stone = require("./Stone")
+Grass = require("./grass")
+GrassEater = require("./grassEater")
+Predator = require("./predator")
+Ant = require("./ant")
+Lion = require("./lion")
+Stone = require("./stone")
 
 
 
@@ -153,6 +153,7 @@ function  game() {
     }
     for (var i in antArr) {
         antArr[i].mul();
+        antArr[i].move();
        
     }
     for (var i in lionArr) {
@@ -162,7 +163,7 @@ function  game() {
     io.sockets.emit("send matrix", matrix);
 }
 
-setInterval(game, 1500)
+setInterval(game, 600)
 
 
 
@@ -171,7 +172,6 @@ setInterval(game, 1500)
 io.on('connection', function () {
     ObjArt()
 })
-
 function kill() {
     GrassArr = [];
 GrassEaterArr = [];
@@ -186,5 +186,22 @@ StoneArr = []
         }
     }
 }
+function addGrass() {
+    for (var i = 0; i < 7; i++) {
+    var x = Math.floor(Math.random() * matrix[0].length)
+    var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 1
+            var gr = new Grass(x, y, 1)
+            grassArr.push(gr)
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
 
 
+io.on('connection', function (socket) {
+    ObjArt(matrix);
+    socket.on('killAll', kill);
+    socket.on("add grass", addGrass);
+})

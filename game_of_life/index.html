@@ -5,18 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   
-       
-    <script src="socket.io/socket.io.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
-    <script src="script.js"></script> 
-    <li>
-        <button onclick="kill()">Kill them all</button>
-    </li>
+    <div class="tool">
+    
+        <button type="button" onclick="kill()" style="height:50px;" class="k">Kill them all</button><br>
+        <button type="button" onclick="addGrass()" style="height:50px;" class="k">Add grass</button>
+        <!-- <button type="button" onclick="addGrass()" style="height:50px;" class="k">Add grass</button> -->
+        </div>
 
-</head>
-<body>
+        <script src="socket.io/socket.io.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+        <script src="script.js"></script> 
 </body>
 </html>
