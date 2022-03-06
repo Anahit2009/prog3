@@ -68,7 +68,7 @@ function generator(matLen, gr, grEat, prd, ant, ln, st) {
     return matrix;
 }
 
-matrix = generator(30, 15, 8, 8,3, 12, 5);
+matrix = generator(30, 15, 8, 8, 3, 12, 5);
 
 io.sockets.emit('send matrix', matrix)
 
@@ -139,7 +139,7 @@ function ObjArt() {
 }
 
 
-function  game() {
+function game() {
     for (var i in grassArr) {
         grassArr[i].mul();
     }
@@ -154,11 +154,11 @@ function  game() {
     for (var i in antArr) {
         antArr[i].mul();
         antArr[i].move();
-       
+    
     }
     for (var i in lionArr) {
-       lionArr[i].mul();
-      lionArr[i].eat();
+        lionArr[i].mul();
+        lionArr[i].eat();
     }
     io.sockets.emit("send matrix", matrix);
 }
@@ -174,22 +174,23 @@ io.on('connection', function () {
 })
 function kill() {
     GrassArr = [];
-GrassEaterArr = [];
-PredatorArr = [];
-AntArr = [];
-LionArr = [];
-StoneArr = []
-    
+    GrassEaterArr = [];
+    PredatorArr = [];
+    AntArr = [];
+    LionArr = [];
+    StoneArr = []
+
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             matrix[y][x] = 0;
         }
     }
+    io.sockets.emit("send matrix", matrix);
 }
 function addGrass() {
     for (var i = 0; i < 7; i++) {
-    var x = Math.floor(Math.random() * matrix[0].length)
-    var y = Math.floor(Math.random() * matrix.length)
+        var x = Math.floor(Math.random() * matrix[0].length)
+        var y = Math.floor(Math.random() * matrix.length)
         if (matrix[y][x] == 0) {
             matrix[y][x] = 1
             var gr = new Grass(x, y, 1)
@@ -198,10 +199,56 @@ function addGrass() {
     }
     io.sockets.emit("send matrix", matrix);
 }
+function addAnt() {
+    for (var i = 0; i < 7; i++) {
+        var x = Math.floor(Math.random() * matrix[0].length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 1
+            var ant = new Ant(x, y, 1)
+            antArr.push(ant)
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
 
+
+
+function killPred() {
+    for (var i = 0; i < 60; i++) {
+        var x = Math.floor(Math.random() * matrix[0].length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 3) {
+            matrix[y][x] = 0
+            grassEaterEaterArr[i].die();
+
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
 
 io.on('connection', function (socket) {
     ObjArt(matrix);
     socket.on('killAll', kill);
     socket.on("add grass", addGrass);
+    socket.on("add ant", addAnt);
+    socket.on('killPr', killPred);
 })
+weath = "winter";
+
+function weather() {
+    if (weath == "winter") {
+        weath = "spring"
+    }
+    else if (weath == "spring") {
+        weath = "summer"
+    }
+    else if (weath == "summer") {
+        weath = "autumn"
+    }
+    else if (weath == "autumn") {
+        weath = "winter"
+    }
+    io.sockets.emit('weather', weath)
+}
+setInterval(weather, 5000);
