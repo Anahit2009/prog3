@@ -121,3 +121,6 @@ function addAnt() {
 function killPr() {
     socket.emit('killPr');
 }
+function spawnGr(){
+    socket.emit('spawnGr');
+}

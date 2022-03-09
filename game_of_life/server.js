@@ -163,7 +163,7 @@ function game() {
     io.sockets.emit("send matrix", matrix);
 }
 
-setInterval(game, 600)
+setInterval(game, 900)
 
 
 
@@ -227,13 +227,29 @@ function killPred() {
     io.sockets.emit("send matrix", matrix);
 }
 
+function spawnGr() {
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            if (matrix[y][x] == 0) {
+                matrix[y][x] = 1
+                grassArr.push(new Grass(x, y, 1))
+            }
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
+
 io.on('connection', function (socket) {
     ObjArt(matrix);
     socket.on('killAll', kill);
     socket.on("add grass", addGrass);
     socket.on("add ant", addAnt);
     socket.on('killPr', killPred);
+    socket.on('spawnGr', spawnGr);
 })
+
+
+
 weath = "winter";
 
 function weather() {
