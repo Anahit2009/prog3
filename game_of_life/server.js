@@ -68,7 +68,7 @@ function generator(matLen, gr, grEat, prd, ant, ln, st) {
     return matrix;
 }
 
-matrix = generator(30, 15, 8, 8, 3, 12, 5);
+matrix = generator(8, 15, 10, 8, 10, 15, 15);
 
 io.sockets.emit('send matrix', matrix)
 
@@ -163,15 +163,13 @@ function game() {
     io.sockets.emit("send matrix", matrix);
 }
 
-setInterval(game, 900)
+setInterval(game, 1000)
 
 
 
 
 
-io.on('connection', function () {
-    ObjArt()
-})
+
 function kill() {
     GrassArr = [];
     GrassEaterArr = [];
@@ -193,7 +191,7 @@ function addGrass() {
         var y = Math.floor(Math.random() * matrix.length)
         if (matrix[y][x] == 0) {
             matrix[y][x] = 1
-            var gr = new Grass(x, y, 1)
+            var gr = new Grass(x, y)
             grassArr.push(gr)
         }
     }
@@ -204,8 +202,8 @@ function addAnt() {
         var x = Math.floor(Math.random() * matrix[0].length)
         var y = Math.floor(Math.random() * matrix.length)
         if (matrix[y][x] == 0) {
-            matrix[y][x] = 1
-            var ant = new Ant(x, y, 1)
+            matrix[y][x] = 4
+            var ant = new Ant(x, y)
             antArr.push(ant)
         }
     }
@@ -240,10 +238,10 @@ function spawnGr() {
 }
 
 io.on('connection', function (socket) {
-    ObjArt(matrix);
-    socket.on('killAll', kill);
+    ObjArt();
+    socket.on("kill", kill);
     socket.on("add grass", addGrass);
-    socket.on("add ant", addAnt);
+    socket.on("add Ant", addAnt);
     socket.on('killPr', killPred);
     socket.on('spawnGr', spawnGr);
 })
@@ -267,4 +265,4 @@ function weather() {
     }
     io.sockets.emit('weather', weath)
 }
-setInterval(weather, 5000);
+setInterval(weather, 4000);
